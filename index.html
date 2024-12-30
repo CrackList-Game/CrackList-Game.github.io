@@ -77,9 +77,9 @@
 <body>
     <div class="container">
         <div id="colorSelection">
-            <div class="colorCircle" id="colorRed"></div>
-            <div class="colorCircle" id="colorGreen"></div>
-            <div class="colorCircle" id="colorBlue"></div>
+            <div class="colorCircle" id="colorRed" style="background-color: #52deff;"></div>
+            <div class="colorCircle" id="colorGreen" style="background-color: #febd1b;"></div>
+            <div class="colorCircle" id="colorBlue" style="background-color: #db2323;"></div>
         </div>
         
         <div id="timer">20</div>
@@ -123,9 +123,9 @@
         // Fonction pour choisir une couleur aléatoire
         function chooseRandomColor() {
             // Réinitialiser toutes les couleurs à gris avant de sélectionner
-            colorRed.style.backgroundColor = 'grey';
-            colorGreen.style.backgroundColor = 'grey';
-            colorBlue.style.backgroundColor = 'grey';
+            colorRed.style.backgroundColor = '#52deff'; // Couleur initiale
+            colorGreen.style.backgroundColor = '#febd1b'; // Couleur initiale
+            colorBlue.style.backgroundColor = '#db2323'; // Couleur initiale
 
             // Couleurs possibles
             const colors = ['red', 'green', 'blue'];
