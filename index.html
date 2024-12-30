@@ -3,26 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Page avec une image de fond uniquement">
-    <title>Image de Fond</title>
+    <meta name="description" content="Page avec un minuteur décomptant de 20 à 0">
+    <title>Minuteur</title>
     <style>
-        /* Supprimer tous les styles par défaut */
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
         }
 
-        /* Ajouter une image en fond */
-        body {
-            background-image: url('fond.png'); /* Chemin de l'image de fond */
-            background-size: cover;          /* Ajuste l'image pour couvrir toute la fenêtre */
-            background-repeat: no-repeat;    /* Empêche la répétition de l'image */
-            background-position: center;     /* Centre l'image */
+        .container {
+            text-align: center;
+        }
+
+        #timer {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div id="timer">20</div>
+        <button id="startBtn">Démarrer le minuteur</button>
+        <button id="resetBtn">Relancer à partir de 20</button>
+    </div>
+
+    <script>
+        let time = 20; // Durée du minuteur en secondes
+        let timerInterval; // Variable pour l'intervalle du minuteur
+
+        const timerDisplay = document.getElementById('timer');
+        const startBtn = document.getElementById('startBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        // Fonction pour démarrer le minuteur
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval); // Arrêter l'ancien minuteur s'il existe
+            timerInterval = setInterval(() => {
+                time--; // Réduire le temps
+                timerDisplay.textContent = time; // Mettre à jour l'affichage du minuteur
+                if (time === 0) {
+                    clearInterval(timerInterval); // Arrêter le minuteur quand il atteint 0
+                }
+            }, 1000);
+        }
+
+        // Fonction pour relancer le minuteur à partir de 20
+        function resetTimer() {
+            time = 20; // Réinitialiser le temps à 20
+            timerDisplay.textContent = time; // Mettre à jour l'affichage
+            clearInterval(timerInterval); // Arrêter l'ancien minuteur s'il existe
+        }
+
+        // Ajouter des événements aux boutons
+        startBtn.addEventListener('click', startTimer);
+        resetBtn.addEventListener('click', resetTimer);
+    </script>
 </body>
 </html>
