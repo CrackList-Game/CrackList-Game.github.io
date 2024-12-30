@@ -61,6 +61,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre douce autour du cadre */
             width: fit-content; /* Adapte la largeur au contenu */
             margin: 0 auto; /* Centrer le cadre */
+            cursor: pointer; /* Change le curseur pour indiquer que c'est cliquable */
         }
 
         .colorCircle {
@@ -85,7 +86,6 @@
         <div id="timer">20</div>
         <button id="startBtn">Démarrer le minuteur</button>
         <button id="resetBtn">Relancer à partir de 20</button>
-        <button id="chooseColorBtn">Choisir une couleur aléatoire</button>
     </div>
 
     <script>
@@ -95,10 +95,10 @@
         const timerDisplay = document.getElementById('timer');
         const startBtn = document.getElementById('startBtn');
         const resetBtn = document.getElementById('resetBtn');
-        const chooseColorBtn = document.getElementById('chooseColorBtn');
         const colorRed = document.getElementById('colorRed');
         const colorGreen = document.getElementById('colorGreen');
         const colorBlue = document.getElementById('colorBlue');
+        const colorSelection = document.getElementById('colorSelection');
 
         // Fonction pour démarrer le minuteur
         function startTimer() {
@@ -146,7 +146,7 @@
         // Ajouter des événements aux boutons
         startBtn.addEventListener('click', startTimer);
         resetBtn.addEventListener('click', resetTimer);
-        chooseColorBtn.addEventListener('click', chooseRandomColor);
+        colorSelection.addEventListener('click', chooseRandomColor); // Déclenchement du choix de couleur en cliquant sur le cadre
     </script>
 </body>
 </html>
