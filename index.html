@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Page avec un minuteur décomptant de 20 à 0">
-    <title>Minuteur</title>
+    <meta name="description" content="Page avec un minuteur décomptant de 20 à 0 et une sélection aléatoire de couleur">
+    <title>Minuteur et Sélection de Couleur</title>
     <style>
         body, html {
             margin: 0;
@@ -48,10 +48,45 @@
         button:hover {
             background-color: rgba(0, 0, 0, 0.9); /* Effet au survol */
         }
+
+        /* Style pour le module de sélection de couleur */
+        #colorSelection {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        #colorWheel {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 10px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-right: 20px;
+            animation: rotateColor 3s infinite linear;
+        }
+
+        /* Animation de rotation du cercle */
+        @keyframes rotateColor {
+            0% { background-color: red; }
+            33% { background-color: green; }
+            66% { background-color: blue; }
+            100% { background-color: red; }
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
+        <div id="colorSelection">
+            <div id="colorWheel"></div>
+            <button id="chooseColorBtn">Choisir une couleur aléatoire</button>
+        </div>
+        
         <div id="timer">20</div>
         <button id="startBtn">Démarrer le minuteur</button>
         <button id="resetBtn">Relancer à partir de 20</button>
@@ -64,6 +99,8 @@
         const timerDisplay = document.getElementById('timer');
         const startBtn = document.getElementById('startBtn');
         const resetBtn = document.getElementById('resetBtn');
+        const chooseColorBtn = document.getElementById('chooseColorBtn');
+        const colorWheel = document.getElementById('colorWheel');
 
         // Fonction pour démarrer le minuteur
         function startTimer() {
@@ -85,9 +122,22 @@
             startTimer(); // Relancer le minuteur à partir de 20
         }
 
+        // Fonction pour choisir une couleur aléatoire
+        function chooseRandomColor() {
+            // Couleurs possibles
+            const colors = ['red', 'green', 'blue'];
+
+            // Choisir une couleur aléatoire
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+            // Modifier la couleur du cercle
+            colorWheel.style.backgroundColor = randomColor;
+        }
+
         // Ajouter des événements aux boutons
         startBtn.addEventListener('click', startTimer);
         resetBtn.addEventListener('click', resetTimer);
+        chooseColorBtn.addEventListener('click', chooseRandomColor);
     </script>
 </body>
 </html>
