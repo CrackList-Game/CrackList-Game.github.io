@@ -13,64 +13,85 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: center; /* Align items at the top */
             font-family: Arial, sans-serif;
         }
 
         body {
-            background-image: url('fond.png'); /* Chemin de l'image de fond */
-            background-size: cover; /* Ajuste l'image pour couvrir toute la fenêtre */
-            background-repeat: no-repeat; /* Empêche la répétition de l'image */
-            background-position: center; /* Centre l'image */
+            background-image: url('fond.png'); /* Path to your background image */
+            background-size: cover; /* Ensures the image covers the entire viewport */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-position: top center; /* Centers the image, aligning the top with the top of the viewport */
+            background-attachment: fixed; /* Keeps the background fixed during scrolling */
         }
 
         .container {
             text-align: center;
-            color: white; /* Pour que le texte soit visible sur le fond */
+            color: white; /* For visible text on the background */
+            margin-top: 100px; /* Adjust this value to move the content lower */
         }
 
         #timer {
-            font-size: 50px;
+            font-family: 'Impact', sans-serif;
+            font-size: 100px;
+            font-weight: bold;
             margin-bottom: 20px;
+            color: #0d146c;
         }
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 10px;
+        #timerContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            margin: 20px auto 0;
             cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent pour les boutons */
-            color: white; /* Couleur du texte du bouton */
-            border: none;
-            border-radius: 5px;
         }
 
-        button:hover {
-            background-color: rgba(0, 0, 0, 0.9); /* Effet au survol */
-        }
-
-        /* Style pour le module de sélection de couleur */
         #colorSelection {
             display: flex;
             justify-content: space-around;
             align-items: center;
             margin-bottom: 30px;
-            padding: 15px; /* Ajouter un peu plus de marge autour des cercles */
-            border-radius: 15px; /* Coins arrondis du cadre */
-            background-color: white; /* Couleur de fond du cadre */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre douce autour du cadre */
-            width: fit-content; /* Adapte la largeur au contenu */
-            margin: 0 auto; /* Centrer le cadre */
-            cursor: pointer; /* Change le curseur pour indiquer que c'est cliquable */
+            padding: 15px;
+            border-radius: 15px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 305px;
+            margin: 0 auto;
+            cursor: pointer;
         }
 
         .colorCircle {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            margin: 0 15px; /* Espacement plus large entre les cercles */
-            background-color: grey; /* Les cercles sont gris par défaut */
+            margin: 0 15px;
+            background-color: grey;
             transition: background-color 0.3s ease;
+        }
+
+        #nextButton {
+            margin-top: 20px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background-color: #db2323;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #nextButton:hover {
+            background-color: #a11a1a;
         }
 
     </style>
@@ -82,23 +103,28 @@
             <div class="colorCircle" id="colorGreen"></div>
             <div class="colorCircle" id="colorBlue"></div>
         </div>
-        
-        <div id="timer">20</div>
-        <button id="startBtn">Démarrer le minuteur</button>
-        <button id="resetBtn">Relancer à partir de 20</button>
+
+        <!-- Cadre contenant le minuteur -->
+        <div id="timerContainer">
+            <div id="timer">20</div>
+        </div>
+
+        <!-- Bouton "Next" pour remettre le compteur à 20 secondes -->
+        <button id="nextButton">NEXT</button>
     </div>
 
     <script>
         let time = 20; // Durée du minuteur en secondes
         let timerInterval; // Variable pour l'intervalle du minuteur
+        let isRunning = false; // État du minuteur (en marche ou en pause)
 
         const timerDisplay = document.getElementById('timer');
-        const startBtn = document.getElementById('startBtn');
-        const resetBtn = document.getElementById('resetBtn');
+        const timerContainer = document.getElementById('timerContainer');
         const colorRed = document.getElementById('colorRed');
         const colorGreen = document.getElementById('colorGreen');
         const colorBlue = document.getElementById('colorBlue');
         const colorSelection = document.getElementById('colorSelection');
+        const nextButton = document.getElementById('nextButton');
 
         // Fonction pour démarrer le minuteur
         function startTimer() {
@@ -108,16 +134,25 @@
                 timerDisplay.textContent = time; // Mettre à jour l'affichage du minuteur
                 if (time === 0) {
                     clearInterval(timerInterval); // Arrêter le minuteur quand il atteint 0
+                    isRunning = false; // Marquer le minuteur comme arrêté
                 }
             }, 1000);
         }
 
-        // Fonction pour relancer le minuteur à partir de 20
+        // Fonction pour mettre en pause le minuteur
+        function pauseTimer() {
+            clearInterval(timerInterval); // Arrêter le minuteur
+            isRunning = false; // Marquer le minuteur comme mis en pause
+        }
+
+        // Fonction pour relancer le minuteur depuis 20
         function resetTimer() {
             time = 20; // Réinitialiser le temps à 20
             timerDisplay.textContent = time; // Mettre à jour l'affichage
-            clearInterval(timerInterval); // Arrêter l'ancien minuteur s'il existe
-            startTimer(); // Relancer le minuteur à partir de 20
+            if (isRunning) {
+                clearInterval(timerInterval); // Arrêter l'ancien minuteur s'il existe
+                startTimer(); // Relancer le minuteur
+            }
         }
 
         // Fonction pour choisir une couleur aléatoire
@@ -143,10 +178,20 @@
             }
         }
 
-        // Ajouter des événements aux boutons
-        startBtn.addEventListener('click', startTimer);
-        resetBtn.addEventListener('click', resetTimer);
+        // Ajouter des événements aux actions
+        timerContainer.addEventListener('click', () => {
+            if (isRunning) {
+                pauseTimer(); // Mettre en pause le minuteur avec un clic
+            } else {
+                startTimer(); // Démarrer le minuteur avec un clic
+                isRunning = true;
+            }
+        });
+
         colorSelection.addEventListener('click', chooseRandomColor); // Déclenchement du choix de couleur en cliquant sur le cadre
+
+        // Bouton "Next" pour remettre le minuteur à 20 secondes
+        nextButton.addEventListener('click', resetTimer);
     </script>
 </body>
 </html>
