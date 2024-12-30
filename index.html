@@ -17,8 +17,16 @@
             font-family: Arial, sans-serif;
         }
 
+        body {
+            background-image: url('fond.png'); /* Chemin de l'image de fond */
+            background-size: cover; /* Ajuste l'image pour couvrir toute la fenêtre */
+            background-repeat: no-repeat; /* Empêche la répétition de l'image */
+            background-position: center; /* Centre l'image */
+        }
+
         .container {
             text-align: center;
+            color: white; /* Pour que le texte soit visible sur le fond */
         }
 
         #timer {
@@ -31,6 +39,14 @@
             font-size: 16px;
             margin: 10px;
             cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent pour les boutons */
+            color: white; /* Couleur du texte du bouton */
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: rgba(0, 0, 0, 0.9); /* Effet au survol */
         }
     </style>
 </head>
@@ -66,6 +82,7 @@
             time = 20; // Réinitialiser le temps à 20
             timerDisplay.textContent = time; // Mettre à jour l'affichage
             clearInterval(timerInterval); // Arrêter l'ancien minuteur s'il existe
+            startTimer(); // Relancer le minuteur à partir de 20
         }
 
         // Ajouter des événements aux boutons
