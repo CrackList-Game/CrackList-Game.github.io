@@ -57,25 +57,13 @@
             margin-bottom: 30px;
         }
 
-        #colorWheel {
-            width: 100px;
-            height: 100px;
+        .colorCircle {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            border: 10px solid white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            margin-right: 20px;
-            animation: rotateColor 3s infinite linear;
-        }
-
-        /* Animation de rotation du cercle */
-        @keyframes rotateColor {
-            0% { background-color: red; }
-            33% { background-color: green; }
-            66% { background-color: blue; }
-            100% { background-color: red; }
+            margin: 10px;
+            background-color: grey;
+            transition: background-color 0.3s ease;
         }
 
     </style>
@@ -83,13 +71,15 @@
 <body>
     <div class="container">
         <div id="colorSelection">
-            <div id="colorWheel"></div>
-            <button id="chooseColorBtn">Choisir une couleur aléatoire</button>
+            <div class="colorCircle" id="colorRed"></div>
+            <div class="colorCircle" id="colorGreen"></div>
+            <div class="colorCircle" id="colorBlue"></div>
         </div>
         
         <div id="timer">20</div>
         <button id="startBtn">Démarrer le minuteur</button>
         <button id="resetBtn">Relancer à partir de 20</button>
+        <button id="chooseColorBtn">Choisir une couleur aléatoire</button>
     </div>
 
     <script>
@@ -100,7 +90,9 @@
         const startBtn = document.getElementById('startBtn');
         const resetBtn = document.getElementById('resetBtn');
         const chooseColorBtn = document.getElementById('chooseColorBtn');
-        const colorWheel = document.getElementById('colorWheel');
+        const colorRed = document.getElementById('colorRed');
+        const colorGreen = document.getElementById('colorGreen');
+        const colorBlue = document.getElementById('colorBlue');
 
         // Fonction pour démarrer le minuteur
         function startTimer() {
@@ -124,14 +116,25 @@
 
         // Fonction pour choisir une couleur aléatoire
         function chooseRandomColor() {
+            // Réinitialiser toutes les couleurs à gris avant de sélectionner
+            colorRed.style.backgroundColor = 'grey';
+            colorGreen.style.backgroundColor = 'grey';
+            colorBlue.style.backgroundColor = 'grey';
+
             // Couleurs possibles
             const colors = ['red', 'green', 'blue'];
 
             // Choisir une couleur aléatoire
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
-            // Modifier la couleur du cercle
-            colorWheel.style.backgroundColor = randomColor;
+            // Mettre à jour la couleur du cercle sélectionné
+            if (randomColor === 'red') {
+                colorRed.style.backgroundColor = 'red';
+            } else if (randomColor === 'green') {
+                colorGreen.style.backgroundColor = 'green';
+            } else if (randomColor === 'blue') {
+                colorBlue.style.backgroundColor = 'blue';
+            }
         }
 
         // Ajouter des événements aux boutons
