@@ -68,7 +68,7 @@
             height: 60px;
             border-radius: 50%;
             margin: 0 15px; /* Espacement plus large entre les cercles */
-            background-color: grey;
+            background-color: grey; /* Les cercles sont gris par défaut */
             transition: background-color 0.3s ease;
         }
 
@@ -77,9 +77,9 @@
 <body>
     <div class="container">
         <div id="colorSelection">
-            <div class="colorCircle" id="colorRed" style="background-color: #52deff;"></div>
-            <div class="colorCircle" id="colorGreen" style="background-color: #febd1b;"></div>
-            <div class="colorCircle" id="colorBlue" style="background-color: #db2323;"></div>
+            <div class="colorCircle" id="colorRed"></div>
+            <div class="colorCircle" id="colorGreen"></div>
+            <div class="colorCircle" id="colorBlue"></div>
         </div>
         
         <div id="timer">20</div>
@@ -122,24 +122,24 @@
 
         // Fonction pour choisir une couleur aléatoire
         function chooseRandomColor() {
-            // Réinitialiser toutes les couleurs à gris avant de sélectionner
-            colorRed.style.backgroundColor = '#52deff'; // Couleur initiale
-            colorGreen.style.backgroundColor = '#febd1b'; // Couleur initiale
-            colorBlue.style.backgroundColor = '#db2323'; // Couleur initiale
+            // Réinitialiser tous les cercles à gris avant de sélectionner
+            colorRed.style.backgroundColor = 'grey';
+            colorGreen.style.backgroundColor = 'grey';
+            colorBlue.style.backgroundColor = 'grey';
 
-            // Couleurs possibles
-            const colors = ['red', 'green', 'blue'];
+            // Couleurs d'allumage possibles
+            const colors = ['#52deff', '#febd1b', '#db2323']; // Les couleurs que vous m'avez données
 
-            // Choisir une couleur aléatoire
+            // Choisir une couleur aléatoire parmi les trois
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
             // Mettre à jour la couleur du cercle sélectionné
-            if (randomColor === 'red') {
-                colorRed.style.backgroundColor = 'red';
-            } else if (randomColor === 'green') {
-                colorGreen.style.backgroundColor = 'green';
-            } else if (randomColor === 'blue') {
-                colorBlue.style.backgroundColor = 'blue';
+            if (randomColor === '#52deff') {
+                colorRed.style.backgroundColor = '#52deff'; // Bleu clair
+            } else if (randomColor === '#febd1b') {
+                colorGreen.style.backgroundColor = '#febd1b'; // Jaune
+            } else if (randomColor === '#db2323') {
+                colorBlue.style.backgroundColor = '#db2323'; // Rouge
             }
         }
 
