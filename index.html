@@ -52,20 +52,21 @@
         /* Style pour le module de sélection de couleur */
         #colorSelection {
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
             margin-bottom: 30px;
-            padding: 20px;
+            padding: 10px;
             border-radius: 15px; /* Coins arrondis du cadre */
             background-color: white; /* Couleur de fond du cadre */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre douce autour du cadre */
+            width: fit-content; /* Adapte la largeur au contenu */
         }
 
         .colorCircle {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            margin: 10px;
+            margin: 0 10px; /* Espacement entre les cercles */
             background-color: grey;
             transition: background-color 0.3s ease;
         }
